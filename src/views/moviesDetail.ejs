@@ -9,14 +9,17 @@
 </head>
 <body>
     <figure>
-        <img src="/img/logo-DH.png" alt="Logo Digital House">
+        <a href="/"> <img src="/img/logo-DH.png" alt="Logo Digital House"></a>
     </figure>
     <h1><%= movie.title %> </h1>    
     <br>
     <p>RATING: <%= movie.rating %> </p>
-    <p>AWARDS: <%= movie.awards %> </p>
-    <p>LENGTH: <%= movie.length + ' min'%> </p>
-    <p>RELEASE DATE: <%= movie.release_date %> </p>
+    <p>PREMIOS: <%= movie.awards %> </p>
+    <p>DURACIÓN: <%= movie.length + ' min'%> </p>
+    <p>ESTRENADA EL: <%= movie.release_date %> </p><br>
+
+
+    <a href="/movies">Volver a la lista</a>
 
 </body>
 </html>
