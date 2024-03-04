@@ -49,5 +49,23 @@ module.exports = {
         console.log(err);
         res.send("No pude acceder a las recomendaciones");
       });
+  }, //Aqui debemos modificar y completar lo necesario para trabajar con el CRUD
+  add: function (req, res) {
+    res.render("moviesAdd")
+  },
+  create: function (req, res) {
+      // TODO
+  },
+  edit: function(req, res) {
+      // TODO
+  },
+  update: function (req,res) {
+      // TODO
+  },
+  delete: function (req, res) {
+      // TODO
+  },
+  destroy: function (req, res) {
+      // TODO
   }
 };
