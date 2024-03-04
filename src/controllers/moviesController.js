@@ -1,4 +1,6 @@
 const db = require("../database/models");
+const {validationResult} = require('express-validator');
+
 
 module.exports = {
   list: (req, res) => {
@@ -54,13 +56,44 @@ module.exports = {
     res.render("moviesAdd")
   },
   create: function (req, res) {
-      // TODO
+    const errores = validationResult(req);
+        console.log("errores:", errores);
+        if(!errores.isEmpty()){
+          console.log("Ingrese en errores");
+          res.render('moviesAdd',{errores:errores.mapped(),old:req.body})
+      }
+      else{
+
+    db.Movie.create(req.body)
+    .then(()=> {
+      res.redirect("/movies")
+    })
+  }
   },
   edit: function(req, res) {
-      // TODO
+      db.Movie.findByPk(req.params.id)
+      .then((response) => {
+        res.render("moviesEdit", { Movie: response.dataValues})
+      })
   },
   update: function (req,res) {
-      // TODO
+    const { id } = req.params;
+    const errores = validationResult(req);
+    console.log("errores:", errores);
+    if(!errores.isEmpty()){
+      console.log("Ingrese en errores");
+      res.render('moviesAdd',{errores:errores.mapped(),old:req.body})
+  }
+  else{
+
+db.Movie.update( req.body, {
+  where: {id}
+}
+  )
+.then(()=> {
+  res.redirect("/movies")
+})
+}
   },
   delete: function (req, res) {
       // TODO

@@ -10,22 +10,31 @@
 
 <body>
     <figure>
-        <img src="/img/logo-DH.png" alt="Logo Digital House">
+        <a href="/"> <img src="/img/logo-DH.png" alt="Logo Digital House"></a>
       </figure>
     <h1 class="titulo">Agregar Película</h1>
     <br>
     <section class="formulario">
         <form action="/movies/create" method="POST">
             <label for="title">Title </label>
-            <p><input type="text" name="title" id="" required></p>
+            <p><input type="text" name="title" id="" value="<%= locals.old && old.title ? old.title : null %>" required></p>
+            <p style="color:red"><%= locals.errores && errores.title ? errores.title.msg : null %> </p>
+            
             <label for="rating">Rating </label>
-            <p><input type="number" name="rating" id="" required> </p>
+            <p><input type="number" step="0.1" name="rating" id="" value="<%= locals.old && old.rating ? old.rating : null %>" required> </p>
+            <p style="color:red"><%= locals.errores && errores.rating ? errores.rating.msg : null %> </p>
+            
             <label for="awards">Awards </label>
-            <p><input type="number" name="awards" id="" required></p>
+            <p><input type="number" name="awards" id="" value="<%= locals.old && old.awards ? old.awards : null %>" required></p>
+            <p style="color:red"><%= locals.errores && errores.awards ? errores.awards.msg : null %> </p>
+            
             <label for="release_date">Release date </label>
-            <p><input type="date" name="release_date" id="" required></p>
+            <p><input type="date" name="release_date" id="" value="<%= locals.old && old.release_date ? old.release_date : null %>" required></p>
+            <p style="color:red"><%= locals.errores && errores.release_date ? errores.release_date.msg : null %> </p>
+            
             <label for="length">Length </label>
-            <p><input type="number" name="length" id="" required></p>
+            <p><input type="number" name="length" id="" value="<%= locals.old && old.length ? old.length : null %>" required></p>
+            <p style="color:red"><%= locals.errores && errores.length ? errores.length.msg : null %> </p>
 
             <br>
             <p> <button class="botonAgregar" type="submit">Agregar</button>
