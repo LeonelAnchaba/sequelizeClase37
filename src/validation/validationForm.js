@@ -14,7 +14,7 @@ module.exports = [
       const fechaActual = new Date();
 
       if (fechaIngresada < fechaMinima || fechaIngresada > fechaActual) {
-        throw new Error('La fecha debe ser mayor al 01-01-1930 y menor al día de hoy');
+        throw new Error('La fecha debe ser mayor al 01-01-1950 y menor al día de hoy');
       }
 
       return true;
@@ -22,7 +22,7 @@ module.exports = [
     body("awards").notEmpty().withMessage("El campo no puede estar vacio").bail()
     .isInt({ min: 0, max: 15 }).withMessage('El número debe estar entre 0 y 15'),
     body("length").notEmpty().withMessage("El campo no puede estar vacio").bail()
-    .isInt({ min: 0, max: 200 }).withMessage('Representa los minutos totales. El máximo es de 300 minutos'),
+    .isInt({ min: 45, max: 300 }).withMessage('El mínimo es de 45 y el máximo de 300 minutos'),
     
 
 ];

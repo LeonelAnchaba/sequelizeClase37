@@ -19,8 +19,9 @@
     <p>ESTRENADA EL: <%= movie.release_date %> </p><br>
 
 
-    <a href="/movies">Volver a la lista</a>  
-    <a href="/movies/edit/<%= movie.id %>">Editar</a>
+    <button><a class="text_button" href="/movies">Volver a la lista</a></button> 
+    <button><a class="text_button" href="/movies/edit/<%= movie.id %>">Editar</a></button>
+    <button><a class="text_button" href="/movies/delete/<%= movie.id %>">Borrar</a></button> 
 
 </body>
 </html>

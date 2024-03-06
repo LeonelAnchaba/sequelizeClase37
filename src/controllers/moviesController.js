@@ -71,9 +71,11 @@ module.exports = {
   }
   },
   edit: function(req, res) {
+ 
       db.Movie.findByPk(req.params.id)
       .then((response) => {
         res.render("moviesEdit", { Movie: response.dataValues})
+        // console.log("Holaaaaaaaa", response.dataValues.release_date)
       })
   },
   update: function (req,res) {
@@ -91,14 +93,23 @@ db.Movie.update( req.body, {
 }
   )
 .then(()=> {
-  res.redirect("/movies")
+  res.redirect(`/movies/detail/${id}`)
 })
 }
   },
   delete: function (req, res) {
-      // TODO
+    db.Movie.findByPk(req.params.id)
+    .then((response) => {
+      res.render("moviesDelete", { Movie: response.dataValues})
+    })
   },
   destroy: function (req, res) {
-      // TODO
-  }
+    const {id} = req.params
+    db.Movie.destroy({
+        where : { id }
+    })
+    .then(() => {
+        res.redirect('/movies')
+    })
+  },
 };
