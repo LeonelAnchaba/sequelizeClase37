@@ -81,7 +81,7 @@ module.exports = {
       Promise.all([db.Movie.findByPk(req.params.id),db.Genre.findAll()])
       .then((response) => {
         res.render("moviesEdit", { Movie: response[0].dataValues, genres:response[1] })
-        console.log("-----Holaaaaaaaa", response[1])
+        // console.log("-----Holaaaaaaaa", response[1])
       })
   },
   update: function (req,res) {
@@ -89,8 +89,11 @@ module.exports = {
     const errores = validationResult(req);
     console.log("errores:", errores);
     if(!errores.isEmpty()){
-      console.log("Ingrese en errores");
-      res.render('moviesAdd',{errores:errores.mapped(),old:req.body})
+      Promise.all([db.Movie.findByPk(req.params.id),db.Genre.findAll()])
+      .then((response) => {
+        res.render("moviesEdit", { Movie: response[0].dataValues, genres:response[1], errores:errores.mapped(),old:req.body })
+        console.log("Movete boca moveteeee", response[1])
+      })
   }
   else{
 
@@ -100,6 +103,7 @@ db.Movie.update( req.body, {
   )
 .then(()=> {
   res.redirect(`/movies/detail/${id}`)
+  console.log("Movete deja de jodeeeeeeeee", genres)
 })
 }
   },
