@@ -29,6 +29,8 @@ module.exports = (sequelize, dataTypes) => {
             unsigned: true
         },
         release_date: {
+            //En workbench modifiqué el dataType. Por defecto estaba como Datetime, lo cambié a Date
+            //De esta manera, cuando quiero editar una pelicula puedo recuperar su fecha de estreno
             type: dataTypes.DATE,
             allowNull: false
         },
