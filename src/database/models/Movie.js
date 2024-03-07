@@ -36,6 +36,11 @@ module.exports = (sequelize, dataTypes) => {
             type: dataTypes.INTEGER,
             unsigned: true,
             allowNull: true
+        },
+        genre_id: {
+            type: dataTypes.INTEGER,
+            unsigned: true,
+            allowNull: true
         }
     };
     const config = {
@@ -43,6 +48,24 @@ module.exports = (sequelize, dataTypes) => {
         timestamps: false
     };
 
-    const Movie = sequelize.define(alias, cols, config)
+    const Movie = sequelize.define(alias, cols, config);
+
+    Movie.associate = function(models) {
+        Movie.belongsTo(models.Genre, {
+            as: "genres",
+            foreignKey: "genre_id"
+        })
+        Movie.associate = function(models) {
+            Movie.belongsToMany(models.Actor, {
+                as: "actors",
+                through: "actor_movie",
+                foreignKey: "movie_id",
+                otherKey: "actor_id",
+                timestamps: false
+            })
+        }
+    }
+
+
     return Movie
 }

@@ -53,14 +53,21 @@ module.exports = {
       });
   }, //Aqui debemos modificar y completar lo necesario para trabajar con el CRUD
   add: function (req, res) {
-    res.render("moviesAdd")
+    db.Genre.findAll()
+    .then((genres) => {
+        res.render('moviesAdd', {genres})
+        console.log("----------------!", genres)
+    })
   },
   create: function (req, res) {
     const errores = validationResult(req);
         console.log("errores:", errores);
         if(!errores.isEmpty()){
-          console.log("Ingrese en errores");
-          res.render('moviesAdd',{errores:errores.mapped(),old:req.body})
+          db.Genre.findAll()
+            .then((genres) => {
+          console.log("Ingrese en errores", req.body);
+          res.render('moviesAdd',{genres, errores:errores.mapped(),old:req.body})
+        })
       }
       else{
 
@@ -71,11 +78,10 @@ module.exports = {
   }
   },
   edit: function(req, res) {
- 
-      db.Movie.findByPk(req.params.id)
+      Promise.all([db.Movie.findByPk(req.params.id),db.Genre.findAll()])
       .then((response) => {
-        res.render("moviesEdit", { Movie: response.dataValues})
-        // console.log("Holaaaaaaaa", response.dataValues.release_date)
+        res.render("moviesEdit", { Movie: response[0].dataValues, genres:response[1] })
+        console.log("-----Holaaaaaaaa", response[1])
       })
   },
   update: function (req,res) {
