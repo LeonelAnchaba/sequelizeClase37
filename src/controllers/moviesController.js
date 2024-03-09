@@ -75,7 +75,8 @@ module.exports = {
 
     db.Movie.create(req.body)
     .then(()=> {
-      res.redirect("/movies")
+      res.redirect(`/movies`)
+      console.log("Que llega del body cuando creo? :", req.body)
     })
   }
   },
