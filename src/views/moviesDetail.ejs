@@ -16,7 +16,18 @@
     <p>RATING: <%= movie.rating %> </p>
     <p>PREMIOS: <%= movie.awards %> </p>
     <p>DURACIÓN: <%= movie.length + ' min'%> </p>
-    <p>ESTRENADA EL: <%= movie.release_date %> </p><br>
+    <p>ESTRENADA EL: <%= movie.release_date %> </p>
+    <p>GÉNERO: <%= movie.genre ? movie.genre.name : "No especificado" %> </p><br>
+
+        ACTORES:
+        <ul>
+            <% for (let i = 0; i < movie.actors.length; i++) { %>
+                <li class="actores">
+                    <%= movie.actors[i].first_name %> <%= movie.actors[i].last_name %>
+                </li>
+            <% } %>
+        </ul>
+  
 
 
     <a class="botonVolver" href="/movies">Volver a la lista</a>

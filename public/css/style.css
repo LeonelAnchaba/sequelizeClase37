@@ -1,10 +1,9 @@
 *{
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
 }
 body {
-  padding: 50px;
+  padding: 50px 50px 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -42,4 +41,9 @@ figure{
 .formulario{
   margin: auto;
   width: 20%;
+}
+
+.actores {
+  padding:1px;
+  margin-left: 15px
 }

@@ -15,7 +15,9 @@ module.exports = {
   },
 
   detail: (req, res) => {
-    db.Movie.findByPk(req.params.id)
+    db.Movie.findByPk(req.params.id, {
+      include: [{association: "genre"}, {association: "actors"}]
+    })
       .then(function (movie) {
         res.render("moviesDetail", { movie });
       })
@@ -56,7 +58,7 @@ module.exports = {
     db.Genre.findAll()
     .then((genres) => {
         res.render('moviesAdd', {genres})
-        console.log("----------------!", genres)
+        // console.log("----------------!", genres)
     })
   },
   create: function (req, res) {
@@ -78,9 +80,11 @@ module.exports = {
   }
   },
   edit: function(req, res) {
-      Promise.all([db.Movie.findByPk(req.params.id),db.Genre.findAll()])
-      .then((response) => {
-        res.render("moviesEdit", { Movie: response[0].dataValues, genres:response[1] })
+    const pedidoMovie = db.Movie.findByPk(req.params.id)
+    const pedidoGenres = db.Genre.findAll()
+    Promise.all([pedidoMovie, pedidoGenres])
+      .then(([movie, genres]) => {
+        res.render("moviesEdit", { Movie: movie, genres })
         // console.log("-----Holaaaaaaaa", response[1])
       })
   },
@@ -89,21 +93,24 @@ module.exports = {
     const errores = validationResult(req);
     console.log("errores:", errores);
     if(!errores.isEmpty()){
-      Promise.all([db.Movie.findByPk(req.params.id),db.Genre.findAll()])
-      .then((response) => {
-        res.render("moviesEdit", { Movie: response[0].dataValues, genres:response[1], errores:errores.mapped(),old:req.body })
-        console.log("Movete boca moveteeee", response[1])
+      const pedidoMovie = db.Movie.findByPk(req.params.id)
+    const pedidoGenres = db.Genre.findAll()
+    Promise.all([pedidoMovie, pedidoGenres])
+      .then(([movie, genres]) => {
+        res.render("moviesEdit", { Movie: movie, genres, errores:errores.mapped(),old:req.body })
+  
       })
   }
   else{
-
-db.Movie.update( req.body, {
-  where: {id}
-}
-  )
+    db.Movie.update(req.body,
+  {
+  where: {
+    id:req.params.id
+  },
+})
 .then(()=> {
   res.redirect(`/movies/detail/${id}`)
-  console.log("Movete deja de jodeeeeeeeee", genres)
+  console.log("Movete deja de jodeeeeeeeee", req.body)
 })
 }
   },
