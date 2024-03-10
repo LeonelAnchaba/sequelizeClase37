@@ -17,7 +17,9 @@ list: (req,res) => {
 
 },
 detail: (req, res) => {
-    db.Actor.findByPk(req.params.id)
+    db.Actor.findByPk(req.params.id, {
+      include: [{association: "movie"}, {association: "movies"}]
+    })
       .then(function (actor) {
         res.render("actorsDetail", { actor });
       })
@@ -63,7 +65,7 @@ create: (req, res) => {
           }
 },
 edit: (req, res) => {
-
+  res.send("Holi")
 },
 update: (req, res) => {
 

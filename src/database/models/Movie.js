@@ -64,7 +64,11 @@ module.exports = (sequelize, dataTypes) => {
             otherKey: "actor_id",
             timestamps: false
             })
-        }
+        Movie.hasMany(models.Actor, {
+            as: "actor",
+            foreignKey: "favorite_movie_id"
+        })
+    }
 
 
     return Movie

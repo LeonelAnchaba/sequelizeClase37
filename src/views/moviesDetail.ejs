@@ -9,24 +9,24 @@
 </head>
 <body>
     <figure>
-        <a href="/"> <img src="/img/Argenflix.jpeg" alt="Logo Argenflix"></a>
+        <a href="/"> <img src="/img/Argenflix.png" alt="Logo Argenflix"></a>
     </figure>
     <h1><%= movie.title %> </h1>    
     <br>
-    <p>RATING: <%= movie.rating %> </p>
-    <p>PREMIOS: <%= movie.awards %> </p>
-    <p>DURACIÓN: <%= movie.length + ' min'%> </p>
-    <p>ESTRENADA EL: <%= movie.release_date %> </p>
-    <p>GÉNERO: <%= movie.genre ? movie.genre.name : "No especificado" %> </p><br>
+    <p>RATING: <a><%= movie.rating %></a> </p>
+    <p>PREMIOS: <a><%= movie.awards %></a> </p>
+    <p>DURACIÓN: <a><%= movie.length + ' min'%></a> </p>
+    <p>ESTRENADA EL: <a><%= movie.release_date %></a> </p>
+    <p>GÉNERO: <a><%= movie.genre ? movie.genre.name : "No especificado" %></a> </p><br>
 
-        ACTORES:
+    <p>ELENCO: </p>
         <ul>
             <% for (let i = 0; i < movie.actors.length; i++) { %>
                 <li class="actores">
-                    <%= movie.actors[i].first_name %> <%= movie.actors[i].last_name %>
+                    <a href="/actors/detail/<%=movie.actors[i].id%>"><%= movie.actors[i].first_name %> <%= movie.actors[i].last_name %>
                 </li>
             <% } %>
-        </ul>
+        </ul><br><br>
   
 
 
