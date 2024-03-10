@@ -54,8 +54,12 @@ add: (req, res) => {
 create: (req, res) => {
   const errores = validationResult(req)
         if(!errores.isEmpty()){
-            res.render('actorsAdd', {errores:errores.mapped(), old:req.body})
+          db.Movie.findAll()
+          .then((movies) => {
+            res.render('actorsAdd', {movies, errores:errores.mapped(), old:req.body})
             console.log("Entré en errores")
+          })
+            
         } else {
             db.Actor.create(req.body)
             .then(() => {
@@ -65,15 +69,54 @@ create: (req, res) => {
           }
 },
 edit: (req, res) => {
-  res.send("Holi")
+  const pedidoActor = db.Actor.findByPk(req.params.id)
+    const pedidoMovies = db.Movie.findAll()
+    Promise.all([pedidoActor, pedidoMovies])
+      .then(([actor, movies]) => {
+        res.render("actorEdit", { Actor: actor, movies })
+        // console.log("-----Holaaaaaaaa", response[1])
+      })
+  
 },
 update: (req, res) => {
+  const { id } = req.params;
+  const errores = validationResult(req);
+  console.log("errores:", errores);
+  if(!errores.isEmpty()){
+    const pedidoActor = db.Actor.findByPk(req.params.id)
+  const pedidoMovies = db.Movie.findAll()
+  Promise.all([pedidoActor, pedidoMovies])
+    .then(([actor, movies]) => {
+      res.render("actorEdit", { Actor: actor, movies, errores:errores.mapped(),old:req.body })
 
+    })
+}
+else{
+  db.Actor.update(req.body,
+{
+where: {
+  id:req.params.id
+},
+})
+.then(()=> {
+res.redirect(`/actors/detail/${id}`)
+console.log("Movete deja de jodeeeeeeeee", req.body)
+})
+}
 },
 delete: (req, res) => {
-
+  db.Actor.findByPk(req.params.id)
+  .then((response) => {
+    res.render("actorDelete", { Actor: response.dataValues})
+  })
 },
 destroy: (req, res) => {
-
+  const {id} = req.params
+  db.Actor.destroy({
+      where : { id }
+  })
+  .then(() => {
+      res.redirect('/actors')
+  })
 },
 }

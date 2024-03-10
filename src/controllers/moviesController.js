@@ -46,6 +46,7 @@ module.exports = {
         rating: { [db.Sequelize.Op.gte]: 7 },
       },
       order: [["rating", "DESC"]],
+      limit: 5,
     }).then((movies) => {
       res.render("recommendedMovies.ejs", { movies });
     })

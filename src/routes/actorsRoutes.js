@@ -11,7 +11,7 @@ router.get('/actors/add',actorsController.add);
 router.post('/actors/create', ActorsValidation, actorsController.create);
 
 router.get('/actors/edit/:id', actorsController.edit);
-router.put('/actors/update/:id', actorsController.update);
+router.put('/actors/update/:id', ActorsValidation, actorsController.update);
 
 router.get('/actors/delete/:id', actorsController.delete);
 router.delete('/actors/delete/:id', actorsController.destroy);
