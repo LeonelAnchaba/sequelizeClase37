@@ -9,11 +9,18 @@
 
 </head>
 
-<body>
+<body>  
     <figure>
-        <a href="/"> <img src="/img/logo-DH.png" alt="Logo Digital House"></a>
+        <a href="/"> <img src="/img/Argenflix.png" alt="Logo Argenflix"></a>
     </figure>
-    <h1>LISTADO DE PELÍCULAS</h1>
+    <h1>Todas nuestras películas :</h1>
+    <br>
+    <p>
+        <a class="botonAgregar" href="/movies/add">Agregar una Pelicula</a>
+        <a class="botonVolver" href="/">Inicio</a>
+
+    </p>
+    <br>
     <ul>
         <% for( let i = 0; i < movies.length; i++ ) { %>
         <li>

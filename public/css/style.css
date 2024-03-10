@@ -1,19 +1,79 @@
 *{
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
 }
 body {
-  padding: 50px;
+  padding: 0px 50px 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: large;
+  background-color: hsl(0, 0%, 0%);
+  max-width: 1024px;
+  margin: auto
 }
 
+
 a {
-  color: #00B7FF;
+  color: white;
+  text-decoration: none;
+  font-size: large;
 }
 img{
   width: 100%;
 }
 figure{
-  width: 20%;
+  width: 30%;
+}
+.titulo{
+  text-align: center;
+}
+.botonAgregar , .botonModificar{
+  color: white;
+  background-color: green;
+  padding: 10px;
+  border-radius: 10px;
+}
+.botonBorrar{
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
+}
+.botonVolver{
+  color: white;
+  background-color: #00B7FF;
+  padding: 10px;
+  border-radius: 10px;
+}
+.formulario{
+  margin: auto;
+  width: 60%;
+  text-align: center;
+}
+
+.actores {
+  padding:1px;
+  margin-left: 15px
+}
+
+h1 {
+  color: #56BFD8
+}
+
+p {
+  color: #286F86
+}
+
+
+ul li {
+  color: white;
+}
+
+form label {
+  color: white;
+}
+
+h3 {
+  color: #286F86
 }

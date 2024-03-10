@@ -29,10 +29,17 @@ module.exports = (sequelize, dataTypes) => {
             unsigned: true
         },
         release_date: {
+            //En workbench modifiqué el dataType. Por defecto estaba como Datetime, lo cambié a Date
+            //De esta manera, cuando quiero editar una pelicula puedo recuperar su fecha de estreno
             type: dataTypes.DATE,
             allowNull: false
         },
         length: {
+            type: dataTypes.INTEGER,
+            unsigned: true,
+            allowNull: true
+        },
+        genre_id: {
             type: dataTypes.INTEGER,
             unsigned: true,
             allowNull: true
@@ -43,6 +50,26 @@ module.exports = (sequelize, dataTypes) => {
         timestamps: false
     };
 
-    const Movie = sequelize.define(alias, cols, config)
+    const Movie = sequelize.define(alias, cols, config);
+
+    Movie.associate = function(models) {
+        Movie.belongsTo(models.Genre, {
+            as: "genre",
+            foreignKey: "genre_id"
+        })
+        Movie.belongsToMany(models.Actor, {
+            as: "actors",
+            through: "actor_movie",
+            foreignKey: "movie_id",
+            otherKey: "actor_id",
+            timestamps: false
+            })
+        Movie.hasMany(models.Actor, {
+            as: "actor",
+            foreignKey: "favorite_movie_id"
+        })
+    }
+
+
     return Movie
 }

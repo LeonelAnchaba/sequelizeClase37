@@ -11,9 +11,14 @@
 
 <body>
     <figure>
-        <a href="/"> <img src="/img/logo-DH.png" alt="Logo Digital House"></a>
+        <a href="/"> <img src="/img/Argenflix.png" alt="Logo Argenflix"></a>
       </figure>
-    <h1>LISTADO DE ACTORES & ACTRICES</h1>
+    <h1>Listado de actores y actrices :</h1>
+    <br>
+    <p>
+        <a  class="botonAgregar" href="/actors/add">Agregar Actor/Actriz</a>
+        <a class="botonVolver" href="/">Inicio</a>
+    </p>
     <ul>
         <% for( let i = 0; i < actors.length; i++ ) { %>
         <li>
@@ -22,6 +27,7 @@
         <% } %>
 
     </ul>
+    
 </body>
 
 </html>
