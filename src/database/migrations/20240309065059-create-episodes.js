@@ -27,7 +27,7 @@ module.exports = {
         allowNull: true
       },
       release_date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       rating: {

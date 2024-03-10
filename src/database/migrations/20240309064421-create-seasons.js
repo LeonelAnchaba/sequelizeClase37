@@ -27,11 +27,11 @@ module.exports = {
         allowNull: true
       },
       release_date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       end_date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       serie_id: {

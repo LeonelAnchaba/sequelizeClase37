@@ -99,6 +99,14 @@ module.exports = {
         name: "Musical",
         ranking: 12,
         active: 1
+      },
+      {
+        id: 13,
+        created_at: new Date,
+        updated_At: new Date,
+        name: "Policial",
+        ranking: 13,
+        active: 1
       }
     ], {});
     

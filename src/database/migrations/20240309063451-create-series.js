@@ -23,11 +23,11 @@ module.exports = {
         allowNull: false
       },
       release_date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       end_date: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       genre_id: {
