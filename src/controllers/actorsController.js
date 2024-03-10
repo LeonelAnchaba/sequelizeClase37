@@ -49,7 +49,6 @@ add: (req, res) => {
   .then((movies) => {
     res.render('actorsAdd', {movies})
   })
-  
 },
 create: (req, res) => {
   const errores = validationResult(req)
@@ -57,24 +56,31 @@ create: (req, res) => {
           db.Movie.findAll()
           .then((movies) => {
             res.render('actorsAdd', {movies, errores:errores.mapped(), old:req.body})
-            console.log("Entré en errores")
-          })
-            
-        } else {
+          })     
+        } else {      
             db.Actor.create(req.body)
-            .then(() => {
-                res.redirect('/actors')
-                console.log("Que llega del body cuando creo? :", req.body)
+            .then((resp) => {
+            const movies = req.body.movieNumber
+              for (let i=0; i<movies.length; i++){
+              db.Actor_movie.create({
+                actor_id:resp.dataValues.id,  
+                movie_id: movies[i],
+              })
+            }
             })
+              .then(()=> {
+                res.redirect('/actors')
+              })                    
           }
 },
 edit: (req, res) => {
-  const pedidoActor = db.Actor.findByPk(req.params.id)
+  const pedidoActor = db.Actor.findByPk(req.params.id, {
+    include: [{association: "movies"}]
+  })
     const pedidoMovies = db.Movie.findAll()
     Promise.all([pedidoActor, pedidoMovies])
       .then(([actor, movies]) => {
         res.render("actorEdit", { Actor: actor, movies })
-        // console.log("-----Holaaaaaaaa", response[1])
       })
   
 },
@@ -92,15 +98,29 @@ update: (req, res) => {
     })
 }
 else{
+  const movies = req.body.movieNumber
+  for (let i=0; i<movies.length; i++){ 
+    db.Actor_movie.destroy({
+        where : {
+          actor_id : id
+        }
+    })
+}
   db.Actor.update(req.body,
 {
 where: {
   id:req.params.id
 },
 })
+.then((resp) => {
+    for (let i=0; i<movies.length; i++){
+    db.Actor_movie.create({
+      actor_id: req.params.id,  
+      movie_id: movies[i],
+    })
+  }})
 .then(()=> {
 res.redirect(`/actors/detail/${id}`)
-console.log("Movete deja de jodeeeeeeeee", req.body)
 })
 }
 },

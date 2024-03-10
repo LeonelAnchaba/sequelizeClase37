@@ -28,6 +28,20 @@
             <p><input type="number" step="0.1" name="rating" id="" value="<%= Actor.rating %>" required> </p>
             <p style="color:red"><%= locals.errores && errores.rating ? errores.rating.msg : null %> </p>
             
+
+            <p>
+                
+                <label>Actuó en :</label><br>
+                <% movies.forEach(movie => { %>
+                
+                <input type="checkbox" name="movieNumber" value="<%= movie.id %>" id="movieNumber">
+              <label for="movieNumber" ><%= movie.title %> </label><br>
+
+        <!--  console.log('A quien le darás:', movies); %> -->
+                <% }); %>
+            </select>
+        </p>
+
             <p>
                 <select name="favorite_movie_id" id="" required>
                     <option value="" disabled selected>- Película favorita del catálogo - </option>
