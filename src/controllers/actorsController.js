@@ -107,12 +107,14 @@ else{
     })
 }
   db.Actor.update(req.body,
+    
 {
+  // include: [{association: "movies" }],
 where: {
   id:req.params.id
 },
 })
-.then((resp) => {
+.then(() => {
     for (let i=0; i<movies.length; i++){
     db.Actor_movie.create({
       actor_id: req.params.id,  
@@ -121,6 +123,7 @@ where: {
   }})
 .then(()=> {
 res.redirect(`/actors/detail/${id}`)
+console.log("que llega?",req.body)
 })
 }
 },

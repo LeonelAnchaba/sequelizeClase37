@@ -42,22 +42,23 @@ module.exports = {
         
     },
     create: (req,res) => {
-        res.json(req.body)
-        console.log("holi",req.body)
-        // try {
-        //     db.Movie.create(req.body)
-        //     .then((movie)=> {
-        //         return res.status(200).json({
-        //             status: 200,
-        //             data: movie
-        //         })})            
-        //     .catch(error => res.send(error))
-        // } catch (error) {
-        //     return res.status(404).send(error.message);
-        // }
-    
+        try {
+            db.Movie.create(req.body)
+            .then((movie)=> {
+                return res.status(200).json({
+                    status: 200,
+                    data: movie
+                })})            
+            .catch(error => res.send(error))
+        } catch (error) {
+            return res.status(404).send(error.message);
+        }
     },
     destroy: (req, res) => {
-
-    }
+        let movieId = req.params.id;
+        db.Movie.destroy({where: {id: movieId}})
+        .then((response)=>{
+            return res.status(200).json(response)})
+        
+   }
 }
